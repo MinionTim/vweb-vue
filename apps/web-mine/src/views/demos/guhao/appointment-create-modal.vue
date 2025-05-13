@@ -91,27 +91,27 @@ async function onSubmit(values: Record<string, any>) {
       name: 'good thing',
       desc: 'desc things',
     };
-    console.log('modifyCronJobApi', params)
+    console.log('modifyCronJobApi', params);
     await modifyCronJobApi(params);
     message.success('编辑成功');
     emit('success');
   } else {
     // 新增
-      await addCronJobApi({
-        unit_id: state.unitSeletedOpiton.unit_id,
-        dep_id: state.deptValue.at(-1),
-        date: values.fieldDataPicker,
-        branch_id: state.unitSeletedOpiton.branch_id,
-        unit_name: state.unitSeletedOpiton.unit_name,
-        branch_name: state.unitSeletedOpiton.branch_name,
-        dep_name: state.deptSelectedOpiton.at(-1).label,
-        interval_in_sec: values.fieldTimeInterval * 60,
-        expire_time: values.fieldDataPicker,
-        name: 'good thing',
-        desc: 'desc things',
-      });
-      message.success('新增成功');
-      emit('success');
+    await addCronJobApi({
+      unit_id: state.unitSeletedOpiton.unit_id,
+      dep_id: state.deptValue.at(-1),
+      date: values.fieldDataPicker,
+      branch_id: state.unitSeletedOpiton.branch_id,
+      unit_name: state.unitSeletedOpiton.unit_name,
+      branch_name: state.unitSeletedOpiton.branch_name,
+      dep_name: state.deptSelectedOpiton.at(-1).label,
+      interval_in_sec: values.fieldTimeInterval * 60,
+      expire_time: values.fieldDataPicker,
+      name: 'good thing',
+      desc: 'desc things',
+    });
+    message.success('新增成功');
+    emit('success');
   }
   console.log(
     JSON.stringify(values) + state.unitValue + JSON.stringify(state.deptValue),

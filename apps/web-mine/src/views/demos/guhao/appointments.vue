@@ -184,12 +184,12 @@ const deleteRow = (row: RowType) => {
     content: `确认删除任务 ${row.job_id} ?`,
     icon: 'warning',
   }).then(async () => {
-      await deleteCronJobApi({
-        job_id: row.job_id,
-      });
-      message.success(`任务 ${row.job_id} 删除成功`);
-      refreshGrid();
-    })
+    await deleteCronJobApi({
+      job_id: row.job_id,
+    });
+    message.success(`任务 ${row.job_id} 删除成功`);
+    refreshGrid();
+  });
 };
 
 const createRow = () => {
