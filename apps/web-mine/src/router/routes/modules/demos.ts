@@ -21,6 +21,22 @@ const routes: RouteRecordRaw[] = [
         path: '/demos/ant-design',
         component: () => import('#/views/demos/antd/index.vue'),
       },
+      {
+        meta: {
+          title: '科室',
+        },
+        name: 'Guahao',
+        path: '/demos/dept',
+        component: () => import('#/views/demos/guhao/index.vue'),
+      },
+      {
+        meta: {
+          title: '预约列表',
+        },
+        name: 'Appointments',
+        path: '/demos/appointments',
+        component: () => import('#/views/demos/guhao/appointments.vue'),
+      },
     ],
   },
 ];
