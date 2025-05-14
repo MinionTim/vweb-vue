@@ -61,8 +61,8 @@ export namespace CronjobApi {
 async function listCronJobApi(params: CronjobApi.PageFetchParams) {
   return requestClient.get('/list_cron_jobs', { params });
 }
-async function stopCronJobApi(job_id: string) {
-  return requestClient.post('/stop_cron_job', { job_id });
+async function stopCronJobApi(params: CronjobApi.DeleteCronParams) {
+  return requestClient.post('/stop_cron_job', params);
 }
 async function addCronJobApi(params: CronjobApi.AddCronParams) {
   return requestClient.post('/add_cron_job', params);

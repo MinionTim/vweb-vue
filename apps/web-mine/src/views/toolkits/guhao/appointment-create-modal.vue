@@ -99,7 +99,7 @@ async function onSubmit(values: Record<string, any>) {
     // 新增
     await addCronJobApi({
       unit_id: state.unitSeletedOpiton.unit_id,
-      dep_id: state.deptValue.at(-1),
+      dep_id: state.deptValue.at(-1) ?? 0,
       date: values.fieldDataPicker,
       branch_id: state.unitSeletedOpiton.branch_id,
       unit_name: state.unitSeletedOpiton.unit_name,
@@ -138,6 +138,7 @@ const handleSearch = async (searchText: string) => {
 const onUnitSelect = (seletedOption) => {
   state.unitSeletedOpiton = seletedOption;
   state.unitValue = `${seletedOption.unit_name}${seletedOption.branch_name ? `（${seletedOption.branch_name}）` : ''}`;
+  formApi.setFieldValue('fieldUnitName', state.unitValue); // 添加这行，更新表单值
   message.info(JSON.stringify(seletedOption));
   state.deptValue = [];
   onPrepareDepts(seletedOption.unit_id, seletedOption.branch_id, null);
@@ -145,6 +146,7 @@ const onUnitSelect = (seletedOption) => {
 
 const onDeptChange: CascaderProps['onChange'] = (_value, selectedOptions) => {
   state.deptSelectedOpiton = selectedOptions;
+  formApi.setFieldValue('fieldDep', state.deptValue); // 添加这行，更新表单值
   console.log('onDeptChange', JSON.stringify(selectedOptions));
 };
 

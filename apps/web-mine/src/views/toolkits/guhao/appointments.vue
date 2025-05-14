@@ -6,12 +6,12 @@ import { ref } from 'vue';
 
 import { Page, useVbenModal, confirm } from '@vben/common-ui';
 
-import { message, Modal } from 'ant-design-vue';
+import { message } from 'ant-design-vue';
 import dayjs from 'dayjs';
 import { VxeButton } from 'vxe-pc-ui';
 
 import { useVbenVxeGrid } from '#/adapter/vxe-table';
-import { deleteCronJobApi, listCronJobApi } from '#/api';
+import { deleteCronJobApi, listCronJobApi, stopCronJobApi} from '#/api';
 
 import AppointmentCreateView from './appointment-create-modal.vue';
 
@@ -57,12 +57,12 @@ const formOptions: VbenFormProps = {
           },
           {
             label: '已停用',
-            value: '2',
+            value: 'stopped',
           },
         ],
         placeholder: '请选择',
       },
-      fieldName: 'color',
+      fieldName: 'state',
       label: '状态',
     },
   ],
@@ -192,6 +192,20 @@ const deleteRow = (row: RowType) => {
   });
 };
 
+const stopRow = (row: RowType) => {
+  confirm({
+    centered: false,
+    content: `确认停用任务 ${row.job_id} 吗，停用后不可再编辑 ?`,
+    icon: 'warning',
+  }).then(async () => {
+    await stopCronJobApi({
+      job_id: row.job_id,
+    });
+    message.success(`任务 ${row.job_id} 停用成功`);
+    refreshGrid();
+  });
+};
+
 const createRow = () => {
   appointmentCreateApi.setData({});
   appointmentCreateApi.open();
@@ -218,15 +232,17 @@ const refreshGrid = () => {
             icon="vxe-icon-edit"
             mode="text"
             status="primary"
+            :disabled="row.state === 'stopped'"
             @click="editRow(row)"
-          >
-            编辑
+          > 
+          编辑
           </VxeButton>
           <VxeButton
             icon="vxe-icon-swap"
             mode="text"
             status="warning"
-            @click="editRow(row)"
+            :disabled="row.state === 'stopped'"
+            @click="stopRow(row)"
           >
             停用
           </VxeButton>
