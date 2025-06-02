@@ -11,7 +11,7 @@ import dayjs from 'dayjs';
 import { VxeButton } from 'vxe-pc-ui';
 
 import { useVbenVxeGrid } from '#/adapter/vxe-table';
-import { deleteCronJobApi, listCronJobApi, stopCronJobApi} from '#/api';
+import { deleteCronJobApi, listCronJobApi, stopCronJobApi } from '#/api';
 
 import AppointmentCreateView from './appointment-create-modal.vue';
 
@@ -236,8 +236,8 @@ const refreshGrid = () => {
             status="primary"
             :disabled="row.state === 'stopped'"
             @click="editRow(row)"
-          > 
-          编辑
+          >
+            编辑
           </VxeButton>
           <VxeButton
             icon="vxe-icon-swap"

@@ -221,7 +221,7 @@ const [Form, formApi] = useVbenForm({
       },
       fieldName: 'fieldTimeInterval',
       label: '轮选间隔时长',
-      defaultValue: 10,  // 将默认值移到这里
+      defaultValue: 10, // 将默认值移到这里
       suffix: () => '分钟',
       dependencies: {
         disabled() {

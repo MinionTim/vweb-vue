@@ -26,6 +26,6 @@ export const overridesPreferences = defineOverridesPreferences({
     themeToggle: true,
   },
   theme: {
-    mode: "light"
-  }
+    mode: 'light',
+  },
 });
