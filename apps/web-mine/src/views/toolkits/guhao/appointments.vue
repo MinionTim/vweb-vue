@@ -134,8 +134,10 @@ const gridOptions: VxeGridProps<RowType> = {
   height: 'auto',
   keepSource: true,
   rowConfig: {
-    height: 50, // 设置行高
     isHover: true,
+  },
+  cellConfig: {
+    height: 50, // 设置行高
   },
   pagerConfig: {},
   proxyConfig: {
@@ -155,7 +157,7 @@ const gridOptions: VxeGridProps<RowType> = {
             .format('YYYY-MM-DD');
           delete apiParams.rangePicker;
         }
-        message.success(`Query params: ${JSON.stringify(apiParams)}`);
+        // message.success(`Query params: ${JSON.stringify(apiParams)}`);
         return await listCronJobApi({
           page_num: page.currentPage,
           page_size: page.pageSize,
@@ -257,6 +259,6 @@ const refreshGrid = () => {
         </div>
       </template>
     </Grid>
+    <AppointmentCreateModal @success="refreshGrid" />
   </Page>
-  <AppointmentCreateModal @success="refreshGrid" />
 </template>

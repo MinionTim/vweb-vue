@@ -12,4 +12,20 @@ export const overridesPreferences = defineOverridesPreferences({
     name: 'VWEB',
     defaultHomePath: '/appointments',
   },
+  tabbar: {
+    enable: false,
+  },
+  widget: {
+    fullscreen: true,
+    globalSearch: true,
+    languageToggle: false,
+    lockScreen: false,
+    notification: false,
+    refresh: true,
+    sidebarToggle: true,
+    themeToggle: true,
+  },
+  theme: {
+    mode: "light"
+  }
 });

@@ -59,8 +59,6 @@ async function onSubmit(values: Record<string, any>) {
   values.fieldDataPicker = dayjs(values.fieldDataPicker)
     .tz('Asia/Shanghai')
     .format('YYYY-MM-DD');
-  console.log('ville', JSON.stringify(state));
-  console.log('ville', JSON.stringify(values));
   if (inEditMode.value) {
     // modifyCronJobApi
     message.info(
@@ -91,7 +89,6 @@ async function onSubmit(values: Record<string, any>) {
       name: 'good thing',
       desc: 'desc things',
     };
-    console.log('modifyCronJobApi', params);
     await modifyCronJobApi(params);
     message.success('编辑成功');
     emit('success');
@@ -113,18 +110,16 @@ async function onSubmit(values: Record<string, any>) {
     message.success('新增成功');
     emit('success');
   }
-  console.log(
-    JSON.stringify(values) + state.unitValue + JSON.stringify(state.deptValue),
-  );
+  // console.log(
+  //   JSON.stringify(values) + state.unitValue + JSON.stringify(state.deptValue),
+  // );
 }
 
 const handleSearch = async (searchText: string) => {
-  console.log('handleSearch', searchText);
   if (searchText) {
     const data = await searchUnitApi({
       unit_name: searchText,
     });
-    console.log('ret=', data);
     // branch_name, unit_level_name
     const fixedList = data?.map((item) => ({
       ...item,
@@ -139,7 +134,7 @@ const onUnitSelect = (seletedOption) => {
   state.unitSeletedOpiton = seletedOption;
   state.unitValue = `${seletedOption.unit_name}${seletedOption.branch_name ? `（${seletedOption.branch_name}）` : ''}`;
   formApi.setFieldValue('fieldUnitName', state.unitValue); // 添加这行，更新表单值
-  message.info(JSON.stringify(seletedOption));
+  // message.info(JSON.stringify(seletedOption));
   state.deptValue = [];
   onPrepareDepts(seletedOption.unit_id, seletedOption.branch_id, null);
 };
@@ -147,7 +142,7 @@ const onUnitSelect = (seletedOption) => {
 const onDeptChange: CascaderProps['onChange'] = (_value, selectedOptions) => {
   state.deptSelectedOpiton = selectedOptions;
   formApi.setFieldValue('fieldDep', state.deptValue); // 添加这行，更新表单值
-  console.log('onDeptChange', JSON.stringify(selectedOptions));
+  // console.log('onDeptChange', JSON.stringify(selectedOptions));
 };
 
 function convertDataToOptions(data: any[]) {
@@ -165,7 +160,7 @@ const onPrepareDepts = async (
   branch_id: number,
   seleted_dep_id: null | number,
 ) => {
-  console.log('onPrepareDepts', unit_id, branch_id, seleted_dep_id);
+  // console.log('onPrepareDepts', unit_id, branch_id, seleted_dep_id);
   modalApi.setState({ loading: true });
   const data = await listUnitDeptsApi({
     unit_id,
@@ -174,17 +169,10 @@ const onPrepareDepts = async (
   modalApi.setState({ loading: false });
   state.deptOptions = convertDataToOptions(data);
   if (seleted_dep_id) {
-    console.log(
-      'seleted_dep_id',
-      seleted_dep_id,
-      typeof seleted_dep_id,
-      state.deptOptions,
-    );
     const foundItem = state.deptOptions.find((item) =>
       item?.children?.some((child) => child.value === seleted_dep_id),
     );
     if (foundItem) {
-      console.log('foundItem', foundItem);
       state.deptValue = [foundItem?.value, seleted_dep_id];
     }
   }
@@ -233,6 +221,7 @@ const [Form, formApi] = useVbenForm({
       },
       fieldName: 'fieldTimeInterval',
       label: '轮选间隔时长',
+      defaultValue: 10,  // 将默认值移到这里
       suffix: () => '分钟',
       dependencies: {
         disabled() {

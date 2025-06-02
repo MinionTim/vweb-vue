@@ -5,7 +5,8 @@ import { $t } from '#/locales';
 const routes: RouteRecordRaw[] = [
   {
     meta: {
-      icon: 'ic:baseline-view-in-ar',
+      // icon: 'ic:baseline-view-in-ar',
+      icon: 'lucide:layout-dashboard',
       keepAlive: true,
       order: -1,
       title: $t('toolkits.title'),
@@ -15,16 +16,17 @@ const routes: RouteRecordRaw[] = [
     children: [
       {
         meta: {
-          title: '科室',
+          title: '示例',
+          icon: 'lucide:layers',
         },
-        name: 'Guahao',
+        name: 'Demo',
         path: '/dept',
         component: () => import('#/views/toolkits/guhao/index.vue'),
       },
       {
         meta: {
-          // affixTab: true,
           title: $t('toolkits.guhao'),
+          icon: 'lucide:notepad-text',
         },
         name: 'Appointments',
         path: '/appointments',
